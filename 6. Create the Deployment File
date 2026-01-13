@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  aztec-node:
+    image: "aztecprotocol/aztec:latest"
+    container_name: "aztec-node"
+    ports:
+      - "8080:8080"
+      - "40400:40400"
+    volumes:
+      - ./data:/var/lib/data
+    env_file: .env
+    entrypoint: >-
+      node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --node --archiver --sequencer --network testnet
+    restart: always
