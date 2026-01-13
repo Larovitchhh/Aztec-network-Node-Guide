@@ -1,0 +1,5 @@
+# Install Aztec CLI
+curl -s https://install.aztec.network | bash
+
+# Register as a validator (ensure you have Sepolia ETH in your wallet)
+aztec add-l1-validator --staking-asset-handler=0x... --private-key $VALIDATOR_PRIVATE_KEY
