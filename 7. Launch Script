@@ -1,0 +1,82 @@
+Alright, listen up. If you want to run an Aztec Network Sequencer Node on your VPS to position yourself for rewards and the potential airdrop, here is the technical breakdown in English.
+
+Aztec is a privacy-preserving ZK-Rollup. Running a sequencer means you are responsible for ordering transactions and building blocks.
+
+1. Hardware Requirements (VPS Specs)
+Don't use a cheap shared instance. Generating ZK proofs requires dedicated resources.
+
+CPU: 8 Cores (Modern architecture).
+
+RAM: 16GB - 32GB (The more, the better for proof generation).
+
+Storage: 200GB+ NVMe SSD.
+
+Network: 1Gbps unmetered.
+
+2. System Preparation
+Update your Ubuntu 22.04/24.04 LTS and install the necessary dependencies.
+
+Bash
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install curl git jq build-essential -y
+3. Install Docker & Docker Compose
+Aztec's stack is containerized. Ensure you have the latest version.
+
+Bash
+
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# Install Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+4. Obtain L1 RPC Endpoints (Sepolia)
+Aztec needs to sync with Ethereum.
+
+Execution Client: Use Alchemy or Infura (Sepolia).
+
+Consensus Client: Use a Beacon node provider (QuickNode or your own).
+
+Note: Your RPCs must be stable; otherwise, your node will desync and miss rewards.
+
+5. Configuration (Environment Variables)
+Create a directory and the configuration file.
+
+Bash
+
+mkdir -p ~/aztec-sequencer/data && cd ~/aztec-sequencer
+nano .env
+Paste the following (replace placeholders):
+
+Fragmento de código
+
+ETHEREUM_HOST=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
+L1_CONSENSUS_HOST_URL=https://your-beacon-node-url.com
+# Your private key for staking (must have Sepolia ETH)
+VALIDATOR_PRIVATE_KEY=0xYOUR_PRIVATE_KEY
+# Address where rewards will be sent
+COINBASE=0xYOUR_WALLET_ADDRESS
+LOG_LEVEL=info
+P2P_PORT=40400
+6. Create the Deployment File
+Create the docker-compose.yml:
+
+YAML
+
+version: '3.8'
+services:
+  aztec-node:
+    image: "aztecprotocol/aztec:latest"
+    container_name: "aztec-node"
+    ports:
+      - "8080:8080"
+      - "40400:40400"
+    volumes:
+      - ./data:/var/lib/data
+    env_file: .env
+    entrypoint: >-
+      node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --node --archiver --sequencer --network testnet
+    restart: always
+7. Launch Script
