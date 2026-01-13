@@ -1,0 +1,7 @@
+Aztec needs to sync with Ethereum.
+
+Execution Client: Use Alchemy or Infura (Sepolia).
+
+Consensus Client: Use a Beacon node provider (QuickNode or your own).
+
+Note: Your RPCs must be stable; otherwise, your node will desync and miss rewards.
