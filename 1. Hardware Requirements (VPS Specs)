@@ -1,0 +1,10 @@
+
+Don't use a cheap shared instance. Generating ZK proofs requires dedicated resources.
+
+CPU: 8 Cores (Modern architecture).
+
+RAM: 16GB - 32GB (The more, the better for proof generation).
+
+Storage: 200GB+ NVMe SSD.
+
+Network: 1Gbps unmetered.
