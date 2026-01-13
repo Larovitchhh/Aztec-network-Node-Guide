@@ -1,0 +1,1 @@
+docker logs -f aztec-node | grep -i "sequencer"
