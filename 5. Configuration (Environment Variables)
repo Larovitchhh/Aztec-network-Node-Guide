@@ -1,0 +1,2 @@
+mkdir -p ~/aztec-sequencer/data && cd ~/aztec-sequencer
+nano .env
