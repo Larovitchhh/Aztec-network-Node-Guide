@@ -1,0 +1,5 @@
+If the node falls behind, you might need to wipe the database and resync.
+
+Wipe: docker-compose down && rm -rf ./data/* && ./run_node.sh
+
+Update: Aztec is in active development. Check their GitHub/Discord weekly for image tag updates.
