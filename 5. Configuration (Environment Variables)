@@ -1,2 +1,10 @@
 mkdir -p ~/aztec-sequencer/data && cd ~/aztec-sequencer
 nano .env
+ETHEREUM_HOST=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
+L1_CONSENSUS_HOST_URL=https://your-beacon-node-url.com
+# Your private key for staking (must have Sepolia ETH)
+VALIDATOR_PRIVATE_KEY=0xYOUR_PRIVATE_KEY
+# Address where rewards will be sent
+COINBASE=0xYOUR_WALLET_ADDRESS
+LOG_LEVEL=info
+P2P_PORT=40400
